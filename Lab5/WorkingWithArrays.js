@@ -32,6 +32,11 @@ export default function WorkingWithArrays(app) {
   const removeTodo = (req, res) => {
     const { id } = req.params;
     const todoIndex = todos.findIndex((t) => t.id === parseInt(id));
+    if (todoIndex === -1) {
+      return res
+        .status(404)
+        .json({ message: `Unable to delete Todo with ID ${id}` });
+    }
     todos.splice(todoIndex, 1);
     res.json(todos);
   };
